@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pollution Source Attribution – Graphical Abstract</title>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    padding:20px;
+    background:#eef2f7;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+.container{
+    max-width:1400px;
+    margin:auto;
+    background:white;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+h1{text-align:center;margin:0;color:#0f172a;font-weight:800;}
+.subtitle{text-align:center;margin-bottom:15px;color:#475569;font-weight:600;}
+#graph{width:100%;height:760px;}
+.buttons{text-align:center;margin-top:10px;}
+button{padding:10px 20px;margin:5px;border:none;border-radius:6px;font-weight:600;cursor:pointer;}
+.primary{background:#0f172a;color:white;}
+.success{background:#0284c7;color:white;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Pollution Source Attribution Framework</h1>
+<div class="subtitle">Random Forest • SHAP • K-Means | Objective 3</div>
+
+<div id="graph"></div>
+
+<div class="buttons">
+<button class="primary" onclick="downloadPNG()">Download PNG</button>
+<button class="success" onclick="downloadSVG()">Download SVG</button>
+</div>
+</div>
+
+<script>
+function createGraph(){
+
+/* ---------- ANNOTATIONS (TEXT INSIDE BOXES) ---------- */
+const annotations = [
+
+/* INPUT */
+{ x:0.1,y:0.85,text:"<b>INDUSTRIAL</b><br>Heavy metals<br>COD • pH" },
+{ x:0.3,y:0.85,text:"<b>SEWAGE</b><br>Coliform<br>NH₃-N • Pharma" },
+{ x:0.5,y:0.85,text:"<b>AGRICULTURE</b><br>Nitrate • Phosphate" },
+{ x:0.7,y:0.85,text:"<b>URBAN</b><br>Population • Rainfall" },
+{ x:0.9,y:0.85,text:"<b>ENVIRONMENT</b><br>Temperature • DO" },
+
+/* ML */
+{ x:0.25,y:0.48,text:"<b>RANDOM FOREST</b><br>Predict pollution<br>R² = 0.856" },
+{ x:0.5,y:0.48,text:"<b>SHAP</b><br>Explains feature impact" },
+{ x:0.75,y:0.48,text:"<b>K-MEANS</b><br>Detects pollution zones" },
+
+/* OUTPUT */
+{ x:0.2,y:0.15,text:"<b>KEY DRIVERS</b><br>Pharma • Microplastics<br>Sewage distance" },
+{ x:0.5,y:0.15,text:"<b>SOURCE SHARE</b><br>Pollutants 62.6%<br>Sewage 28.2%" },
+{ x:0.8,y:0.15,text:"<b>INSIGHTS</b><br>500m buffer<br>Early warning" },
+
+/* FLOW LABELS */
+{ x:0.5,y:0.66,text:"<b>Feature Data → Model Training</b>", font:{size:14,color:"#334155"} },
+{ x:0.5,y:0.32,text:"<b>Model Results → Decision Support</b>", font:{size:14,color:"#334155"} }
+
+].map(a=>({
+...a,
+xref:"x",yref:"y",showarrow:false,align:"center",
+font:a.font || {size:14,color:"#ffffff"}
+}));
+
+/* ---------- BOXES ---------- */
+function box(x,y,color){
+return {
+type:"rect",
+x0:x-0.08,x1:x+0.08,
+y0:y-0.06,y1:y+0.06,
+line:{color:color,width:2},
+fillcolor:color
+};
+}
+
+/* ---------- ARROWS ---------- */
+function arrow(x1,y1,x2,y2){
+return {
+type:"line",
+x0:x1,y0:y1,x1:x2,y1:y2,
+line:{color:"#64748b",width:2},
+};
+}
+
+/* ---------- SHAPES ---------- */
+const shapes=[
+
+/* LAYER BACKGROUND */
+{type:"rect",x0:0.02,x1:0.98,y0:0.7,y1:0.95,fillcolor:"rgba(59,130,246,0.08)",line:{width:0}},
+{type:"rect",x0:0.02,x1:0.98,y0:0.32,y1:0.6,fillcolor:"rgba(34,197,94,0.08)",line:{width:0}},
+{type:"rect",x0:0.02,x1:0.98,y0:0.02,y1:0.25,fillcolor:"rgba(168,85,247,0.08)",line:{width:0}},
+
+/* INPUT BOXES */
+box(0.1,0.85,"#2563eb"),
+box(0.3,0.85,"#2563eb"),
+box(0.5,0.85,"#2563eb"),
+box(0.7,0.85,"#2563eb"),
+box(0.9,0.85,"#2563eb"),
+
+/* ML BOXES */
+box(0.25,0.48,"#059669"),
+box(0.5,0.48,"#059669"),
+box(0.75,0.48,"#059669"),
+
+/* OUTPUT BOXES */
+box(0.2,0.15,"#dc2626"),
+box(0.5,0.15,"#dc2626"),
+box(0.8,0.15,"#dc2626"),
+
+/* ARROWS INPUT → ML */
+arrow(0.1,0.79,0.25,0.54),
+arrow(0.3,0.79,0.25,0.54),
+arrow(0.5,0.79,0.5,0.54),
+arrow(0.7,0.79,0.75,0.54),
+arrow(0.9,0.79,0.75,0.54),
+
+/* ARROWS ML → OUTPUT */
+arrow(0.25,0.42,0.2,0.21),
+arrow(0.5,0.42,0.5,0.21),
+arrow(0.75,0.42,0.8,0.21)
+
+];
+
+/* ---------- EMPTY TRACE ---------- */
+const data=[{x:[0],y:[0],mode:"markers",marker:{opacity:0}}];
+
+const layout={
+xaxis:{visible:false,range:[0,1]},
+yaxis:{visible:false,range:[0,1]},
+margin:{l:20,r:20,t:20,b:20},
+height:760,
+annotations:annotations,
+shapes:shapes,
+paper_bgcolor:"#ffffff"
+};
+
+Plotly.newPlot("graph",data,layout,{displayModeBar:false,responsive:true});
+}
+
+function downloadPNG(){
+Plotly.downloadImage("graph",{format:"png",width:2200,height:1400,filename:"graphical_abstract"});
+}
+function downloadSVG(){
+Plotly.downloadImage("graph",{format:"svg",width:2200,height:1400,filename:"graphical_abstract"});
+}
+
+window.onload=createGraph;
+</script>
+</body>
+</html>

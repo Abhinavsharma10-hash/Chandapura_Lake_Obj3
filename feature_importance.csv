@@ -1,0 +1,12 @@
+feature,importance
+pharmaceutical_residue_ugL,0.31478319730673965
+microplastic_concentration_ppm,0.28833052671381204
+distance_to_sewage_drain_m,0.28211986565899516
+distance_to_industry_m,0.03541790073426334
+turbidity_NTU,0.017905420092341404
+rainfall_last_7days_mm,0.013413444818713557
+population_density_per_km2,0.010976892904560347
+ph_level,0.01038085166840032
+agricultural_runoff_index,0.010286475660062489
+dissolved_oxygen_mgL,0.008572530455882636
+temperature_c,0.007812893986229016

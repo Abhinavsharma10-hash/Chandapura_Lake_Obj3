@@ -1,0 +1,291 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Pollution Source Analysis Report</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; }
+                h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+                h2 { color: #34495e; margin-top: 30px; }
+                h3 { color: #7f8c8d; }
+                .section { margin-bottom: 40px; padding: 20px; background-color: #f9f9f9; border-radius: 10px; }
+                .metrics { display: flex; justify-content: space-around; flex-wrap: wrap; }
+                .metric-card { background: white; padding: 20px; margin: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-width: 200px; }
+                .metric-value { font-size: 24px; font-weight: bold; color: #3498db; }
+                .recommendation { background: #e8f4fc; padding: 15px; margin: 10px 0; border-left: 5px solid #3498db; }
+                table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+                th { background-color: #3498db; color: white; }
+                tr:hover { background-color: #f5f5f5; }
+            </style>
+        </head>
+        <body>
+            <h1>Pollution Source Analysis Report</h1>
+            <p><strong>Generated:</strong> 2026-02-13 19:44:46</p>
+            <p><strong>Dataset:</strong> 500 samples with 11 features</p>
+            
+            <div class="section">
+                <h2>1. Executive Summary</h2>
+                <p>This report presents a comprehensive analysis of pollution sources using Random Forest machine learning. 
+                The model achieved an R² score of 0.8563 on test data, explaining 85.6% of variance in pollution risk.</p>
+                
+                <div class="metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">0.8563</div>
+                        <div>Test R² Score</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">0.5061</div>
+                        <div>Test MSE</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4</div>
+                        <div>Pollution Clusters</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">Pollutant_Levels</div>
+                        <div>Top Source Category</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>2. Model Performance</h2>
+                <h3>Random Forest Regression Results</h3>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Training</th>
+                        <th>Testing</th>
+                    </tr>
+                    <tr>
+                        <td>R² Score</td>
+                        <td>0.9957</td>
+                        <td>0.8563</td>
+                    </tr>
+                    <tr>
+                        <td>Mean Squared Error</td>
+                        <td>0.0071</td>
+                        <td>0.5061</td>
+                    </tr>
+                </table>
+                
+                <h3>Best Hyperparameters</h3>
+                <ul>
+                    
+                    <li><strong>max_depth:</strong> 10</li>
+                    
+                    <li><strong>max_features:</strong> sqrt</li>
+                    
+                    <li><strong>min_samples_leaf:</strong> 1</li>
+                    
+                    <li><strong>min_samples_split:</strong> 2</li>
+                    
+                    <li><strong>n_estimators:</strong> 300</li>
+                    
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>3. Feature Importance Analysis</h2>
+                <h3>Top 10 Most Important Features</h3>
+                <table>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Feature</th>
+                        <th>Importance Score</th>
+                        <th>Category</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>1</td>
+                        <td>pharmaceutical_residue_ugL</td>
+                        <td>0.31478319730673965</td>
+                        <td>Pollutant_Levels</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>2</td>
+                        <td>microplastic_concentration_ppm</td>
+                        <td>0.28833052671381204</td>
+                        <td>Pollutant_Levels</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>3</td>
+                        <td>distance_to_sewage_drain_m</td>
+                        <td>0.28211986565899516</td>
+                        <td>Sewage/Drainage</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>4</td>
+                        <td>distance_to_industry_m</td>
+                        <td>0.03541790073426334</td>
+                        <td>Industrial</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>5</td>
+                        <td>turbidity_NTU</td>
+                        <td>0.017905420092341404</td>
+                        <td>Pollutant_Levels</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>6</td>
+                        <td>rainfall_last_7days_mm</td>
+                        <td>0.013413444818713557</td>
+                        <td>Urban/Runoff</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>7</td>
+                        <td>population_density_per_km2</td>
+                        <td>0.010976892904560347</td>
+                        <td>Urban/Runoff</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>8</td>
+                        <td>ph_level</td>
+                        <td>0.01038085166840032</td>
+                        <td>Environmental</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>9</td>
+                        <td>agricultural_runoff_index</td>
+                        <td>0.010286475660062489</td>
+                        <td>Agricultural</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>10</td>
+                        <td>dissolved_oxygen_mgL</td>
+                        <td>0.008572530455882636</td>
+                        <td>Pollutant_Levels</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>4. Source Category Analysis</h2>
+                <h3>Cumulative Importance by Source Type</h3>
+                <table>
+                    <tr>
+                        <th>Source Category</th>
+                        <th>Cumulative Importance</th>
+                        <th>Rank</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>Pollutant_Levels</td>
+                        <td>0.6295916745687758</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Sewage/Drainage</td>
+                        <td>0.28211986565899516</td>
+                        <td>2</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Industrial</td>
+                        <td>0.03541790073426334</td>
+                        <td>3</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Urban/Runoff</td>
+                        <td>0.024390337723273904</td>
+                        <td>4</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Environmental</td>
+                        <td>0.018193745654629334</td>
+                        <td>5</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Agricultural</td>
+                        <td>0.010286475660062489</td>
+                        <td>6</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>5. Key Insights & Recommendations</h2>
+                <h3>Top Pollution Sources Identified</h3>
+                <ol>
+                    
+                    <li>Pollutant_Levels</li>
+                    
+                    <li>Sewage/Drainage</li>
+                    
+                    <li>Industrial</li>
+                    
+                </ol>
+                
+                <h3>Recommended Actions</h3>
+                
+                <div class="recommendation">
+                    Focus monitoring on Pollutant_Levels sources
+                </div>
+                
+                <div class="recommendation">
+                    Implement targeted interventions based on feature importance
+                </div>
+                
+                <div class="recommendation">
+                    Use model predictions for proactive pollution management
+                </div>
+                
+            </div>
+            
+            <div class="section">
+                <h2>6. Correlation Findings</h2>
+                <h3>Significant Pollutant-Source Correlations (p < 0.05)</h3>
+                <ul>
+                    
+                    <li>Microplastics show significant correlation with distance_to_industry_m</li>
+                    
+                    <li>Pharmaceutical residues correlated with sewage drainage distance</li>
+                    
+                    <li>Multiple environmental factors contribute to pollution risk</li>
+                    
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>7. Model Implementation</h2>
+                <p>The trained Random Forest model can be used for:</p>
+                <ul>
+                    <li>Predicting pollution risk in new zones</li>
+                    <li>Identifying primary pollution sources</li>
+                    <li>Optimizing monitoring and intervention strategies</li>
+                    <li>Scenario analysis for pollution mitigation</li>
+                </ul>
+                
+                <p><strong>Next Steps:</strong></p>
+                <ol>
+                    <li>Deploy model for real-time pollution monitoring</li>
+                    <li>Integrate with GIS for spatial analysis</li>
+                    <li>Set up automated alert system for high-risk zones</li>
+                    <li>Regular model retraining with new data</li>
+                </ol>
+            </div>
+            
+            <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; color: #7f8c8d;">
+                <p>Report generated by Pollution Source Analysis System</p>
+                <p>Machine Learning Model: Random Forest Regressor</p>
+            </footer>
+        </body>
+        </html>
+        

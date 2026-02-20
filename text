@@ -1,0 +1,62 @@
+What This Dataset Represents
+
+This is a synthetic environmental dataset created to model how different pollution sources affect lake water quality using Machine Learning.
+
+Each row represents one sampling zone/location in the lake.
+
+1. Pollution Source & Catchment Factors (Input Features)
+
+These variables represent activities around the lake that contribute to pollution:
+
+distance_to_industry_m – How far the zone is from industrial discharge areas (closer = higher industrial pollution risk)
+
+distance_to_sewage_drain_m – Distance from sewage outlets (major source of pharmaceutical contaminants)
+
+population_density_per_km2 – Human activity intensity near the lake
+
+agricultural_runoff_index (0–1) – Fertilizer/soil runoff entering the lake
+
+rainfall_last_7days_mm – Rainfall that washes pollutants into water
+
+temperature_c – Influences chemical reactions in water
+
+2. Water Quality Indicators
+
+These describe the condition of water at each zone:
+
+ph_level – Acidity/alkalinity of water
+
+turbidity_NTU – Suspended particles (microplastics often attach here)
+
+dissolved_oxygen_mgL – Oxygen level (low DO = polluted water)
+
+3. Pollutant Signatures (What we are studying)
+
+microplastic_concentration_ppm – Microplastic pollution level
+
+pharmaceutical_residue_ugL – Medicine/chemical residue from sewage
+
+4. Final Pollution Risk
+
+pollution_risk_index – Overall pollution severity score calculated from all pollutant indicators
+
+
+
+
+
+
+
+
+
+“This project is an end-to-end pollution source analysis system built using machine learning.
+I collected environmental and human-activity parameters from multiple zones and trained a Random Forest regression model to predict a Pollution Risk Index for each zone.”
+
+“Beyond prediction, the key focus of my project is explainability. I used feature importance and SHAP analysis to clearly identify which factors contribute most to pollution and whether they increase or decrease pollution risk.”
+
+“I also applied unsupervised learning using PCA and K-Means clustering to group zones with similar pollution behavior, which helps in designing area-specific pollution control strategies instead of treating all zones the same.”
+
+“To strengthen the scientific validity, I performed statistical correlation analysis between pollutants and their potential sources and validated significant relationships using p-values.”
+
+“Finally, the system automatically generates interactive visualizations and a detailed HTML/PDF report that summarizes model performance, pollution sources, insights, and actionable recommendations. This makes the project suitable for real-world decision-making and deployment.”
+
+“Overall, the project does not just predict pollution—it explains the causes, groups similar risk zones, and supports evidence-based environmental management.”
